@@ -1,0 +1,7 @@
+{
+  "dev": {
+    "secret": "hangmanWeb",
+    "key": "hangmanWeb",
+    "maxAge": "86400000"
+  }
+}
