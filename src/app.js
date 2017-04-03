@@ -6,6 +6,7 @@ import _connectMongo from 'connect-mongo';
 import flash from 'connect-flash';
 import log4js from "log4js";
 import expressLayouts from 'express-ejs-layouts';
+import bodyParser from 'body-parser';
 
 import * as config from './config';
 import routes from './routes';
@@ -23,6 +24,10 @@ app.use(expressLayouts);
 app.set('layout', 'layouts/layout');
 
 app.use(express.static(path.join(__dirname, '../public')));
+
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 app.use(session({
   name: config.session.key,
