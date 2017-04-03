@@ -5,7 +5,7 @@ import session from 'express-session';
 import _connectMongo from 'connect-mongo';
 import flash from 'connect-flash';
 import log4js from "log4js";
-
+import expressLayouts from 'express-ejs-layouts';
 
 import * as config from './config';
 import routes from './routes';
@@ -15,10 +15,12 @@ import logger from './libs/logger';
 const MongoStore = _connectMongo(session)
 const app = express();
 
-app.use(log4js.connectLogger(logger, {level:'debug', format:':method :url}));
+app.use(log4js.connectLogger(logger, {level:'debug', format:':method :url'}));
 
 app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'ejs');
+app.use(expressLayouts);
+app.set('layout', 'layouts/layout');
 
 app.use(express.static(path.join(__dirname, '../public')));
 
@@ -53,6 +55,7 @@ routes(app);
 
 app.use((err, req, res, next) => {
   res.render('500', {
+    layout: false,
     error: err
   });
 });
