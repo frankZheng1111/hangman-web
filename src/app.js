@@ -42,15 +42,13 @@ app.use(flash());
 app.locals.hangman = {
   title: pkg.name,
 };
-//
-// // 添加模板必需的三个变量
-// app.use((req, res, next) => {
-//   res.locals.user = req.session.user;
-//   res.locals.success = req.flash('success').toString();
-//   res.locals.error = req.flash('error').toString();
-//   next();
-// });
-//
+app.use((req, res, next) => {
+  res.locals.user = req.session.user;
+  res.locals.success = req.flash('success').toString();
+  res.locals.error = req.flash('error').toString();
+  next();
+});
+
 routes(app);
 
 app.use((err, req, res, next) => {
