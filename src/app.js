@@ -4,12 +4,18 @@ import express from 'express';
 import session from 'express-session';
 import _connectMongo from 'connect-mongo';
 import flash from 'connect-flash';
+import log4js from "log4js";
+
+
 import * as config from './config';
 import routes from './routes';
 import pkg from '../package';
+import logger from './libs/logger';
 
 const MongoStore = _connectMongo(session)
 const app = express();
+
+app.use(log4js.connectLogger(logger, {level:'debug', format:':method :url}));
 
 app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'ejs');
@@ -53,7 +59,7 @@ app.use((err, req, res, next) => {
 
 if (!module.parent) {
   app.listen(config.server.port, () => {
-    console.log(`${pkg.name} listening on port ${config.server.port}`);
+    logger.info(`${pkg.name} listening on port ${config.server.port}`);
   });
 }
 module.exports=app;
