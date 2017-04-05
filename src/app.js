@@ -18,7 +18,7 @@ const app = express();
 
 app.use(log4js.connectLogger(logger, {level:'debug', format:':method :url'}));
 
-app.set('views', path.join(__dirname, '../views'));
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(expressLayouts);
 app.set('layout', 'layouts/layout');
