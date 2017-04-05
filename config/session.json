@@ -2,6 +2,6 @@
   "dev": {
     "secret": "hangmanWeb",
     "key": "hangmanWeb",
-    "maxAge": "86400000"
+    "maxAge": 86400000
   }
 }
