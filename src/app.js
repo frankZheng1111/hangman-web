@@ -46,6 +46,7 @@ app.use(flash());
 
 app.locals.hangman = {
   title: pkg.name,
+  description: pkg.description,
 };
 app.use((req, res, next) => {
   res.locals.user = req.session.user;
