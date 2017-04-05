@@ -58,6 +58,7 @@ app.use((req, res, next) => {
 routes(app);
 
 app.use((err, req, res, next) => {
+  logger.error(err);
   res.render('500', {
     layout: false,
     error: err
