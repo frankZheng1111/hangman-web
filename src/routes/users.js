@@ -15,10 +15,16 @@ router.post('/', (req, res, next) => {
   res.render('helloWorld', { info: req.body });
 });
 
+// 登录页面
+//
+router.get('/signin', (req, res, next) => {
+  res.render('./users/signin');
+});
+
 // 登录
 //
 router.post('/signin', (req, res, next) => {
-  res.render('helloWorld', { info: JSON.stringify(req.body) });
+  res.redirect('/hangmen');
 });
 
 // 登出
