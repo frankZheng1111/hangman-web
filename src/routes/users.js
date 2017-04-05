@@ -6,13 +6,13 @@ const router = express.Router();
 // 新用户注册页面
 //
 router.get('/new', (req, res, next) => {
-  res.render('helloWorld', { info: JSON.stringify(req.query) });
+  res.render('./users/signup');
 });
 
 // 注册新用户
 //
 router.post('/', (req, res, next) => {
-  res.render('helloWorld', { info: req.body });
+  res.redirect('/hangmen');
 });
 
 // 登录页面
@@ -30,7 +30,7 @@ router.post('/signin', (req, res, next) => {
 // 登出
 //
 router.get('/signout', (req, res, next) => {
-  res.render('helloWorld', { info: JSON.stringify(req.query) });
+  res.redirect('/users/signin');
 });
 
 export default router;
