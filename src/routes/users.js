@@ -55,6 +55,7 @@ router.post('/signin', checkNotLogin, (req, res, next) => {
       return res.redirect('/users/signin');
     }
     logger.info(`User ${user.name} signin`);
+    req.session.user = user;
     res.redirect('/hangmen');
   }).catch(next)
 });
