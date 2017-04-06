@@ -1,35 +1,59 @@
 'use strict'
 import express from 'express';
+import {  checkLogin, checkNotLogin } from '../middlewares/check';
+import User from '../models/users';
 
 const router = express.Router();
 
 // 新用户注册页面
 //
-router.get('/new', (req, res, next) => {
+router.get('/new', checkNotLogin, (req, res, next) => {
   res.render('./users/signup');
 });
 
 // 注册新用户
 //
-router.post('/', (req, res, next) => {
-  res.redirect('/hangmen');
+router.post('/', checkNotLogin, (req, res, next) => {
+  try {
+    if (req.body.password.length < 6) { throw new Error ('密码不能少于6位'); }
+    if (req.body.password !== req.body.repassword) { throw new Error('两次输入密码不一样'); }
+  } catch(e) {
+    req.flash('error', e.message)
+    return res.redirect('/users/new');
+  }
+  User.signup(req.body).then((user) => {
+    delete user.password;
+    req.session.user = user;
+    res.redirect('/hangmen');
+  }).catch((e) => {
+    if (e.message.match('E11000 duplicate key')) {
+      req.flash('error', '用户名已被占用');
+      return res.redirect('/users/new');
+    }
+
+    if (e.name === 'ValidationError') {
+      req.flash('error', e.toString().replace('ValidationError:', ''));
+      return res.redirect('/users/new');
+    }
+    next(e);
+  });
 });
 
 // 登录页面
 //
-router.get('/signin', (req, res, next) => {
+router.get('/signin', checkNotLogin, (req, res, next) => {
   res.render('./users/signin');
 });
 
 // 登录
 //
-router.post('/signin', (req, res, next) => {
+router.post('/signin', checkNotLogin, (req, res, next) => {
   res.redirect('/hangmen');
 });
 
 // 登出
 //
-router.get('/signout', (req, res, next) => {
+router.get('/signout', checkLogin, (req, res, next) => {
   res.redirect('/users/signin');
 });
 

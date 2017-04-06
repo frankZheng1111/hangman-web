@@ -29,7 +29,8 @@
     "log4js": "^1.1.1",
     "moment": "^2.18.1",
     "mongoose": "^4.9.2",
-    "mongoose-schema-extend": "^0.2.2"
+    "mongoose-schema-extend": "^0.2.2",
+    "sha1": "^1.1.1"
   },
   "devDependencies": {
     "babel-cli": "^6.24.0",
