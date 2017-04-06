@@ -2,6 +2,7 @@
 import express from 'express';
 import {  checkLogin, checkNotLogin } from '../middlewares/check';
 import User from '../models/users';
+import logger from '../libs/logger';
 
 const router = express.Router();
 
@@ -54,6 +55,8 @@ router.post('/signin', checkNotLogin, (req, res, next) => {
 // 登出
 //
 router.get('/signout', checkLogin, (req, res, next) => {
+  logger.info(`User ${req.session.user.name} signout`);
+  req.session.user = null;
   res.redirect('/users/signin');
 });
 
