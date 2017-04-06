@@ -34,7 +34,7 @@ export let userSchema = baseSchema.extend({
 userSchema.index({ name: 1 }, { unique: true });
 
 export let hangmanSchema = baseSchema.extend({
-  author: {
+  player: {
     type: mongoose.Schema.Types.ObjectId
     // required: true
   },
@@ -49,7 +49,8 @@ export let hangmanSchema = baseSchema.extend({
     type: [String]
   },
   hp: {
-    type: Number
+    type: Number,
+    default: 10
   },
   state: {
     type: String,
