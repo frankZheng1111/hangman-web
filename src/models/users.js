@@ -17,10 +17,12 @@ User.statics = {
 
   // 通过用户名获取用户信息
   //
-  findByName(name) {
+  signin(name, password) {
     return this
-      .findOne({ name: name })
-      .exec();
+      .findOne({
+        name: name,
+        password: sha1(password)
+      }).exec();
   },
 
   test() {

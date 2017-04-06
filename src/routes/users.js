@@ -49,7 +49,14 @@ router.get('/signin', checkNotLogin, (req, res, next) => {
 // 登录
 //
 router.post('/signin', checkNotLogin, (req, res, next) => {
-  res.redirect('/hangmen');
+  User.signin(req.body.name, req.body.password).then((user) => {
+    if (!user) {
+      req.flash('error', '用户名或密码错误');
+      return res.redirect('/users/signin');
+    }
+    logger.info(`User ${user.name} signin`);
+    res.redirect('/hangmen');
+  }).catch(next)
 });
 
 // 登出
