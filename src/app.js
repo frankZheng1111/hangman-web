@@ -7,6 +7,7 @@ import flash from 'connect-flash';
 import log4js from "log4js";
 import expressLayouts from 'express-ejs-layouts';
 import bodyParser from 'body-parser';
+import methodOverride from 'method-override';
 
 import * as config from './config';
 import routes from './routes';
@@ -54,6 +55,15 @@ app.use((req, res, next) => {
   res.locals.error = req.flash('error').toString();
   next();
 });
+
+app.use(methodOverride((req, res) => {
+    if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+      // look in urlencoded POST bodies and delete it
+      let method = req.body._method;
+      delete req.body._method;
+      return method;
+    }
+}))
 
 routes(app);
 

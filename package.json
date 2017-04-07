@@ -27,6 +27,7 @@
     "express-ejs-layouts": "^2.3.0",
     "express-session": "^1.15.2",
     "log4js": "^1.1.1",
+    "method-override": "^2.3.8",
     "moment": "^2.18.1",
     "mongoose": "^4.9.2",
     "mongoose-schema-extend": "^0.2.2",
