@@ -16,6 +16,9 @@ a:hover {
   color: #fff !important;
 }
 
+.letter {
+  display: inline-block !important;
+}
 /* ---------- nav ---------- */
 
 .nav {

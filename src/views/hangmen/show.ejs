@@ -15,15 +15,14 @@
       <label>猜词进度:</label>
       <span><%= currentWordStr %></span>
     <% } %>
+    <br/>
+    <br/>
     <% if (hangman.state === 'init' || hangman.state === 'guessing') { %>
-      <form class="ui form segment" method="post">
-        <input type="hidden" name="_method" value="patch" />
-        <div class="field required">
-          <label>字母(或'-')</label>
-          <input placeholder="请猜一个字母或连接符" type="text" name="letter", maxLength='1'>
-        </div>
-        <input type="submit" class="ui button fluid" value="提交">
-      </form>
+      <label>请选择一个要猜的字母或连接符:</label>
+      <br/>
+      <% letters.forEach(function(letter){ %>
+        <%- include('components/letter', { letter: letter, guessed: hangman.guessedLetters.includes(letter) })%>
+      <% }) %>
     <% } %>
   </div>
 </div>

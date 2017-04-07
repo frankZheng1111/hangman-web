@@ -32,7 +32,7 @@ Hangman.methods = {
   },
 
   currentWordStr() {
-    return this.protoWord.replace(new RegExp(`[^${this.guessedLetters.join('')}]`, 'g'), "*")
+    return this.protoWord.replace(new RegExp(`[^${this.guessedLetters.join('').replace('-', '\\-')}]`, 'g'), "*")
   }
 
 }
