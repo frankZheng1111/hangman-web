@@ -14,7 +14,12 @@ router.get('/', checkLogin, (req, res, next) => {
 // 查看单条记录的详情
 //
 router.get('/:id', checkLogin, (req, res, next) => {
-  res.render('helloWorld', { info: req.params.id });
+  let hangman = Hangman.findById(req.params.id).then((hangman) => {
+    if (!hangman) { throw new Error('hangman not exist'); }
+    res.render('./hangmen/show', { hangman: hangman, currentWordStr: hangman.currentWordStr() });
+  }).catch(next);
+
+  // res.render('helloWorld', { info: req.params.id });
 });
 
 // 开始一次猜词(创建一条记录)
@@ -27,8 +32,13 @@ router.post('/', checkLogin, (req, res, next) => {
 
 // 猜一个字母
 //
-router.patch('/', checkLogin, (req, res, next) => {
-  res.render('helloWorld', { info: JSON.stringify(req.body) });
+router.patch('/:id', checkLogin, (req, res, next) => {
+  let hangman = Hangman.findById(req.params.id).then((hangman) => {
+    if (!hangman) { throw new Error('hangman not exist'); }
+    return hangman.guess(req.body.letter.toLowerCase());
+  }).then((hangman) => {
+    res.redirect(`/hangmen/${hangman._id}`)
+  }).catch(next);
 });
 
 export default router;

@@ -1,0 +1,29 @@
+<div class="ui grid">
+  <div class="four wide column"></div>
+  <div class="eight wide column">
+    <% if (hangman.state === 'win') { %>
+      <h3>你赢了</h3>
+    <% } else if(hangman.state === 'lose' || hangman.state === 'giveup') { %>
+      <h3>你输了</h3>
+      <label>正确答案:</label>
+      <span><%= hangman.protoWord %></span>
+    <% } else { %>
+      <h4>你还有<%= hangman.hp %>次机会</h4>
+    <% } %>
+    <br/>
+    <% if (hangman.state !== 'init') { %>
+      <label>猜词进度:</label>
+      <span><%= currentWordStr %></span>
+    <% } %>
+    <% if (hangman.state === 'init' || hangman.state === 'guessing') { %>
+      <form class="ui form segment" method="post">
+        <input type="hidden" name="_method" value="patch" />
+        <div class="field required">
+          <label>字母(或'-')</label>
+          <input placeholder="请猜一个字母或连接符" type="text" name="letter", maxLength='1'>
+        </div>
+        <input type="submit" class="ui button fluid" value="提交">
+      </form>
+    <% } %>
+  </div>
+</div>

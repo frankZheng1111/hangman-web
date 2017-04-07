@@ -54,7 +54,7 @@ export let hangmanSchema = baseSchema.extend({
   },
   state: {
     type: String,
-    enum: ['win', 'lose', 'guessing', 'giveUp']
+    enum: ['init', 'win', 'lose', 'guessing', 'giveUp']
   }
 });
 hangmanSchema.index({ author: 1, _id: -1 });
