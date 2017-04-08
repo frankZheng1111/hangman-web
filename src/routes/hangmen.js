@@ -8,7 +8,9 @@ const router = express.Router();
 // 获取所有或指定用户的猜过的记录
 //
 router.get('/', checkLogin, (req, res, next) => {
-  res.render('./hangmen/index');
+  Hangman.findAllByPlayer().then((hangmen) => {
+    res.render('./hangmen/index', { hangmen: hangmen });
+  }).catch(next);
 });
 
 // 查看单条记录的详情

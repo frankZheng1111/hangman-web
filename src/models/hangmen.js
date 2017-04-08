@@ -14,6 +14,18 @@ Hangman.statics = {
     hangman.protoWord = (word || _dictionary[Math.floor(Math.random() * _dictionary.length)]).toLowerCase();
     logger.debug(`hangman insert ${JSON.stringify(hangman)}`);
     return this.create(hangman);
+  },
+
+  findAllByPlayer(player) {
+    let query = {};
+    if (player) {
+      query.player = author;
+    }
+    return this
+      .find(query)
+      .populate({ path: 'player', model: 'User' })
+      .sort({ _id: -1 })
+      .exec();
   }
 }
 

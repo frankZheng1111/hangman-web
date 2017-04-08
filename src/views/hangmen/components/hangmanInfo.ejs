@@ -1,0 +1,17 @@
+<div class="ui segment">
+  <h3><a href="/hangmen/<%= hangman._id %>"><%= hangman.currentWordStr() %></a></h3>
+  <pre><%= hangman.currentWordStr() %></pre>
+  <div>
+    /* <span class="tag"><%= hangman.strfCreatedAt %></span> */
+    <span class="tag right">
+        <div class="ui inline dropdown">
+          <div class="text"></div>
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            <div class="item"><a href="/hangmen/<%= hangman._id %>/edit">细节</a></div>
+            <div class="item"><a href="/hangmen/<%= hangman._id %>/remove">放弃</a></div>
+          </div>
+        </div>
+    </span>
+  </div>
+</div>
