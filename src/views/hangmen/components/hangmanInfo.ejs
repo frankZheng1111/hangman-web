@@ -1,8 +1,18 @@
 <div class="ui segment hangman-content">
-  <h3><a href="/hangmen/<%= hangman._id %>"><%= hangman.currentWordStr() %></a></h3>
-  <pre><%= hangman.currentWordStr() %></pre>
+  <% if (hangman.state !== 'init') { %>
+    <h3><a href="/hangmen/<%= hangman._id %>"><%= hangman.currentWordStr() %></a></h3>
+  <% } else { %>
+    <h3><a href="/hangmen/<%= hangman._id %>">== ??? ==</a></h3>
+  <% } %>
+  <pre>游戏状态: <%= { init: '尚未开始', "win": '通关', lose: '失败', giveup: '弃权', 'guessing': '暂停中' }[hangman.state] %></pre>
+  <% if (hangman.isFinished()) { %>
+    <pre>标准答案：<%= hangman.protoWord %></pre>
+  <% } %>
   <div>
+    <label class="tag">游戏开始时间: </label>
     <span class="tag"><%= hangman.strfCreatedAt() %></span>
+    <label class="tag">最后更新时间: </label>
+    <span class="tag"><%= hangman.strfUpdatedAt() %></span>
     <span class="tag right">
       <div class="ui inline dropdown">
         <div class="text">操作</div>
