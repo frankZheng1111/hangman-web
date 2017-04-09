@@ -1,28 +1,23 @@
-<div class="ui grid">
-  <div class="four wide column"></div>
-  <div class="eight wide column">
-    <% if (hangman.state === 'win') { %>
-      <h3>你赢了</h3>
-    <% } else if(hangman.state === 'lose' || hangman.state === 'giveup') { %>
-      <h3>你输了</h3>
-      <label>正确答案:</label>
-      <span><%= hangman.protoWord %></span>
-    <% } else { %>
-      <h4>你还有<%= hangman.hp %>次机会</h4>
-    <% } %>
-    <br/>
-    <% if (hangman.state !== 'init') { %>
-      <label>猜词进度:</label>
-      <span><%= currentWordStr %></span>
-    <% } %>
-    <br/>
-    <br/>
-    <% if (hangman.state === 'init' || hangman.state === 'guessing') { %>
-      <label>请选择一个要猜的字母或连接符:</label>
-      <br/>
-      <% letters.forEach(function(letter){ %>
-        <%- include('components/letter', { letter: letter, guessed: hangman.guessedLetters.includes(letter) })%>
-      <% }) %>
-    <% } %>
-  </div>
-</div>
+<% if (hangman.state === 'win') { %>
+  <h3>你赢了</h3>
+<% } else if(hangman.state === 'lose' || hangman.state === 'giveup') { %>
+  <h3>你输了</h3>
+  <label>正确答案:</label>
+  <span><%= hangman.protoWord %></span>
+<% } else { %>
+  <h4>你还有<%= hangman.hp %>次机会</h4>
+<% } %>
+<br/>
+<% if (hangman.state !== 'init') { %>
+  <label>猜词进度:</label>
+  <span><%= currentWordStr %></span>
+<% } %>
+<br/>
+<br/>
+<% if (hangman.state === 'init' || hangman.state === 'guessing') { %>
+  <label>请选择一个要猜的字母或连接符:</label>
+  <br/>
+  <% letters.forEach(function(letter){ %>
+    <%- include('components/letter', { letter: letter, guessed: hangman.guessedLetters.includes(letter) })%>
+  <% }) %>
+<% } %>

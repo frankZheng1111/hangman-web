@@ -1,11 +1,6 @@
-<div class="ui grid">
-  <div class="four wide column"></div>
-  <div class="eight wide column">
-    <form class="ui form segment" method="post" action="/hangmen">
-      <input type="submit" class="ui button fluid" value="猜一个新词">
-    </form>
-    <% hangmen.forEach(function (hangman) { %>
-      <%- include('components/hangmanInfo', { hangman: hangman }) %>
-    <% }) %>
-  </div>
-</div>
+<form class="ui form segment" method="post" action="/hangmen">
+  <input type="submit" class="ui button fluid" value="猜一个新词">
+</form>
+<% hangmen.forEach(function (hangman) { %>
+  <%- include('components/hangmanInfo', { hangman: hangman }) %>
+<% }) %>
