@@ -3,7 +3,7 @@ import hangmen from './hangmen';
 import users from './users';
 export default function (app) {
   app.get('/', (req, res) => {
-    res.redirect('/hangmen');
+    res.redirect('/users/signin');
   });
   app.use('/hangmen', hangmen);
   app.use('/users', users);
