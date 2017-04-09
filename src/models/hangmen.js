@@ -17,13 +17,15 @@ class Hangman extends Base {
     return this.create(hangman);
   }
 
-  static findAllByPlayer(player) {
+  static findAllByPlayer(player, page = 1, per = 10) {
     let query = {};
     if (player) {
       query.player = player;
    }
     return this
       .find(query)
+      .skip((page-1) * per)
+      .limit(per)
       .populate({ path: 'player', model: 'User' })
       .sort({ _id: -1 })
       .exec();

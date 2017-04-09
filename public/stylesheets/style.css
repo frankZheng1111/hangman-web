@@ -34,7 +34,8 @@ a:hover {
   text-align: center;
 }
 
-.nav h1 {
+.nav h1,
+.nav h4 {
   color: #CDAD00;
   display: inline-block;
   margin: 10px 0;

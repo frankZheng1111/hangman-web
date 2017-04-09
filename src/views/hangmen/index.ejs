@@ -1,6 +1,15 @@
 <form class="ui form segment" method="post" action="/hangmen">
   <input type="submit" class="ui button fluid" value="猜一个新词">
 </form>
+<br/>
+<div class="nav">
+  <div class="ui grid">
+    <h4>最近的游戏记录:</h4>
+  </div>
+</div>
 <% hangmen.forEach(function (hangman) { %>
   <%- include('components/hangmanInfo', { hangman: hangman }) %>
 <% }) %>
+<div class="nav">
+  <a href="/hangmen"><h4>查看更多</h4></a>
+</div>

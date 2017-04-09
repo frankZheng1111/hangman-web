@@ -8,7 +8,7 @@ const router = express.Router();
 // 获取所有或指定用户的猜过的记录
 //
 router.get('/', checkLogin, (req, res, next) => {
-  Hangman.findAllByPlayer(req.session.user._id).then((hangmen) => {
+  Hangman.findAllByPlayer(req.session.user._id, 1, 2).then((hangmen) => {
     res.render('./hangmen/index', { hangmen: hangmen });
   }).catch(next);
 });

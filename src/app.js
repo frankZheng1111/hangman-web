@@ -47,7 +47,7 @@ app.use(flash());
 
 app.locals.hangmanWeb = {
   title: pkg.name,
-  description: pkg.description,
+  description: '一个简单的hangman游戏',
 };
 app.use((req, res, next) => {
   res.locals.user = req.session.user;
