@@ -1,8 +1,10 @@
 'use strict'
 import fs from 'fs';
 import mongoose from 'mongoose';
-import { hangmanSchema as Hangman } from './base'
+import { hangmanSchema as Hangman, strfTimestamp } from './base'
 import logger from '../libs/logger';
+
+Hangman.plugin(strfTimestamp);
 
 Hangman.statics = {
   // 开始猜一个新词
