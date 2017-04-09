@@ -5,6 +5,8 @@ import { hangmanSchema } from '../db/mongooseSchema'
 import Base from './base'
 import logger from '../libs/logger';
 
+const HANGMAN_FINSIHED_STATES = [ 'win', 'lose', 'giveup' ];
+
 class Hangman extends Base {
   // 开始猜一个新词
   //
@@ -44,8 +46,28 @@ class Hangman extends Base {
     return this.save();
   }
 
+  // 当前的猜测状态：由*和猜出的字母构成
+  //
   currentWordStr() {
     return this.protoWord.replace(new RegExp(`[^${this.guessedLetters.join('').replace('-', '\\-')}]`, 'g'), "*")
+  }
+
+  isFinished() {
+    return HANGMAN_FINSIHED_STATES.includes(this.state);
+  }
+
+  // 获取字母的状态
+  // 0: 未猜过
+  // 1: 猜对了
+  // 2: 猜错了
+  //
+  letterStatus(letter) {
+    if (letter !== letter.toLowerCase()) { throw new Error("input.upper.case.letter"); }
+    if (letter.length > 1) { throw new Error("input.multi.letters"); }
+    if (letter.length < 1) { throw new Error("input.nothing"); }
+    if (!this.guessedLetters.includes(letter)) { return 0; }
+    if (this.protoWord.split('').includes(letter)) { return 1; }
+    return 2;
   }
 }
 

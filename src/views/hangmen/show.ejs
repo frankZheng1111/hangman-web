@@ -14,10 +14,8 @@
 <% } %>
 <br/>
 <br/>
-<% if (hangman.state === 'init' || hangman.state === 'guessing') { %>
-  <label>请选择一个要猜的字母或连接符:</label>
-  <br/>
-  <% letters.forEach(function(letter){ %>
-    <%- include('components/letter', { letter: letter, guessed: hangman.guessedLetters.includes(letter) })%>
-  <% }) %>
-<% } %>
+<label>请选择一个要猜的字母或连接符:</label>
+<br/>
+<% letters.forEach(function(letter){ %>
+  <%- include('components/letter', { letter: letter, disabled: hangman.guessedLetters.includes(letter) || hangman.isFinished(), guessedStatus: hangman.letterStatus(letter)  })%>
+<% }) %>

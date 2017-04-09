@@ -26,6 +26,14 @@ a:hover {
 .letter {
   display: inline-block !important;
 }
+
+.red {
+  background-color: #cd4c00 !important;
+}
+
+.green {
+  background-color: #62ec0c !important;
+}
 /* ---------- nav ---------- */
 
 .nav {
