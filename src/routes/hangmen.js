@@ -36,6 +36,7 @@ router.post('/', checkLogin, (req, res, next) => {
 router.patch('/:id', checkLogin, (req, res, next) => {
   let hangman = Hangman.findById(req.params.id).then((hangman) => {
     if (!hangman) { throw new Error('hangman not exist'); }
+    if (hangman.isFinished()) { return Promise.resolve(hangman); }
     return hangman.guess(req.body.letter.toLowerCase());
   }).then((hangman) => {
     res.redirect(`/hangmen/${hangman._id}`)
