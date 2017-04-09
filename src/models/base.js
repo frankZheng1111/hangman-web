@@ -1,28 +1,9 @@
 'use strict'
 import moment from 'moment';
-import  { baseSchema } from '../db/mongooseSchema';
+import { baseSchema } from '../db/mongooseSchema';
+import mongoose from 'mongoose';
 
-// 转换时间戳常见格式
-//
-export function strfTimestamp (schema) {
-  schema.add({ strfCreatedAt: String })
-  schema.add({ strfUpdatedAt: String })
-
-  schema.post('findOne', (item) => {
-    if (item) {
-      item.strfCreatedAt = moment(item.createdAt).format('YYYY-MM-DD HH:mm');
-      item.strfUpdatedAt = moment(item.updatedAt).format('YYYY-MM-DD HH:mm');
-    }
-    return item;
-  });
-  schema.post('find', (items) => {
-    return items.map((item) => {
-      item.strfCreatedAt = moment(item.createdAt).format('YYYY-MM-DD HH:mm');
-      item.strfUpdatedAt = moment(item.updatedAt).format('YYYY-MM-DD HH:mm');
-      return item;
-    });
-  });
-}
+const Model = mongoose.Model;
 
 // 自动更新时间戳
 // mongoose-schema-extend 仅继承 pre save 事件
@@ -31,10 +12,22 @@ function refreshUpdatedAt(next) {
   this.updatedAt = new Date();
   next();
 }
-
 baseSchema.plugin((schema) => {
   schema.pre('save', refreshUpdatedAt)
 });
 
-export * from '../db/mongooseSchema';
+class Base extends Model {
+
+  // 转换时间戳常见格式
+  //
+  strfCreatedAt(formatStr = 'YYYY-MM-DD HH:mm') {
+    return moment(this.createdAt).format(formatStr);
+  }
+
+  strfUpdatedAt(formatStr = 'YYYY-MM-DD HH:mm') {
+    return moment(this.updatedAt).format(formatStr);
+  }
+}
+
+export default mongoose.model(Base, baseSchema);
 
