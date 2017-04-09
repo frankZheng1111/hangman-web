@@ -45,7 +45,7 @@ app.use(session({
 
 app.use(flash());
 
-app.locals.hangman = {
+app.locals.hangmanWeb = {
   title: pkg.name,
   description: pkg.description,
 };

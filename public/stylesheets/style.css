@@ -5,14 +5,21 @@ body {
   height: 100%;
   margin: 0 auto;
   padding-top: 40px;
+  background-color: beige;
+}
+
+.container {
+  height: 100%;
+  background: url(/images/hangman_background.png);
+  background-size: cover;
 }
 
 a:hover {
-  border-bottom: 3px solid #4fc08d;
+  border-bottom: 3px solid #CDAD00;
 }
 
 .button {
-  background-color: #4fc08d !important;
+  background-color: #CDAD00 !important;
   color: #fff !important;
 }
 
@@ -28,9 +35,13 @@ a:hover {
 }
 
 .nav h1 {
-  color: #4fc08d;
+  color: #CDAD00;
   display: inline-block;
   margin: 10px 0;
+}
+
+.ui.segment {
+  background: cornsilk;
 }
 
 /* ---------- nav-setting ---------- */
@@ -44,7 +55,7 @@ a:hover {
 
 .nav-setting .ui.dropdown.button {
   padding: 10px 10px 0 10px;
-  background-color: #fff !important;
+  background-color: transparent !important;
 }
 
 .nav-setting .icon.bars {
@@ -55,7 +66,7 @@ a:hover {
 /* ---------- post-content ---------- */
 
 .hangman-content h3 a {
-  color: #4fc08d !important;
+  color: #CDAD00 !important;
 }
 
 .hangman-content .tag {
