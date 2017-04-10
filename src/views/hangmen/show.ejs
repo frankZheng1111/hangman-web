@@ -1,7 +1,10 @@
+<% if (hangman.state === 'giveup') { %>
+  <h3>弃权</h3>
+<% } %>
 <% if (hangman.state === 'win') { %>
-  <h3>你赢了</h3>
+  <h3>你赢了!</h3>
 <% } else if(hangman.state === 'lose' || hangman.state === 'giveup') { %>
-  <h3>你输了</h3>
+  <h3>你输了==</h3>
   <label>正确答案:</label>
   <span><%= hangman.protoWord %></span>
 <% } else { %>

@@ -22,7 +22,10 @@
             <div class="item"><a href="/hangmen/<%= hangman._id %>">详情</a></div>
           <% } else { %>
             <div class="item"><a href="/hangmen/<%= hangman._id %>">继续</a></div>
-            <div class="item"><a href="/hangmen/<%= hangman._id %>">放弃</a></div>
+            <form class="item" method="post" action="/hangmen/<%= hangman._id %>/giveup">
+              <input type="hidden" name="_method" value="patch" />
+              <input type="submit", class="giveup-link" value="放弃"/>
+            </form>
           <% } %>
         </div>
       </div>

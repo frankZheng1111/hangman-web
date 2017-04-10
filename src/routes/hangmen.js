@@ -43,4 +43,16 @@ router.patch('/:id', checkLogin, (req, res, next) => {
   }).catch(next);
 });
 
+// 这轮游戏弃权
+//
+router.patch('/:id/giveup', checkLogin, (req, res, next) => {
+  let hangman = Hangman.findById(req.params.id).then((hangman) => {
+    if (!hangman) { throw new Error('hangman not exist'); }
+    if (hangman.isFinished()) { return Promise.resolve(hangman); }
+    return hangman.giveup();
+  }).then((hangman) => {
+    res.redirect(`/hangmen/${hangman._id}`)
+  }).catch(next);
+});
+
 export default router;

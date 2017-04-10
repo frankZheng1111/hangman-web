@@ -46,6 +46,15 @@ class Hangman extends Base {
     return this.save();
   }
 
+  // 弃权
+  //
+  giveup() {
+    if (this.isFinished()) { throw new Error('game.already.finished'); }
+    this.hp = 0;
+    this.state = 'giveup';
+    return this.save();
+  }
+
   // 当前的猜测状态：由*和猜出的字母构成
   //
   currentWordStr() {

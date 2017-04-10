@@ -18,6 +18,17 @@ a:hover {
   border-bottom: 3px solid #CDAD00;
 }
 
+.giveup-link:hover {
+  border-bottom: 3px solid #CDAD00;
+}
+
+.giveup-link {
+  color: #999;
+  background: none;
+  border: none;
+  padding: 0px;
+}
+
 .button {
   background-color: #CDAD00 !important;
   color: #fff !important;
