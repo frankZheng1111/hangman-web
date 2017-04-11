@@ -1,21 +1,21 @@
-<form class="ui form segment" method="post" action="/hangmen">
-  <input type="submit" class="ui button fluid" value="猜一个新词">
+<form class='ui form segment' method='post' action='/hangmen'>
+  <input type='submit' class='ui button fluid' value='猜一个新词'>
 </form>
 <br/>
-<div class="nav">
-  <div class="ui grid">
+<div class='nav'>
+  <div class='ui grid'>
     <h4>最近的两次游戏记录:</h4>
   </div>
 </div>
 <% if (hangmen.length === 0) { %>
-  <div class="nav">
+  <div class='nav'>
     <p>您还有玩过一次hangman，点击上方按钮开始一次游戏</p>
   </div>
 <% } else { %>
   <% hangmen.forEach(function (hangman) { %>
     <%- include('components/hangmanInfo', { hangman: hangman }) %>
   <% }) %>
-  <div class="nav">
-    <a href="/hangmen"><h4>查看更多</h4></a>
+  <div class='nav'>
+    <a href='/hangmen'><h4>查看更多</h4></a>
   </div>
 <% } %>

@@ -1,9 +1,9 @@
-<div class="ui grid letter">
-  <div class="one wide column">
-    <form method="post">
-      <input type="hidden" name="_method" value="patch" />
-      <input type="hidden" name="letter" value=<%= letter %> />
-      <input type="submit" class="ui button <%= disabled ? "disabled" : null %> <%= [null, 'green', 'red'][guessedStatus] %>" value=<%= letter %> >
+<div class='ui grid letter'>
+  <div class='one wide column'>
+    <form method='post'>
+      <input type='hidden' name='_method' value='patch' />
+      <input type='hidden' name='letter' value=<%= letter %> />
+      <input type='submit' class='ui button <%= disabled ? 'disabled' : null %> <%= [null, 'green', 'red'][guessedStatus] %>' value=<%= letter %> >
     </form>
   </div>
 </div>

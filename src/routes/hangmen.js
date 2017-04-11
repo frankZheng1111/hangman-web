@@ -18,7 +18,7 @@ router.get('/', checkLogin, (req, res, next) => {
 router.get('/:id', checkLogin, (req, res, next) => {
   let hangman = Hangman.findById(req.params.id).then((hangman) => {
     if (!hangman) { throw new Error('hangman not exist'); }
-    const LETTERS = "abcdefghijklmnopqrstuvwxyz-".split('');
+    const LETTERS = 'abcdefghijklmnopqrstuvwxyz-'.split('');
     res.render('./hangmen/show', { hangman: hangman, currentWordStr: hangman.currentWordStr(), letters: LETTERS });
   }).catch(next);
 });

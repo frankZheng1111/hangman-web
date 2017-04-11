@@ -13,7 +13,7 @@ class Hangman extends Base {
   static newGame(user, word) {
     let hangman = { state: 'init', player: user._id }
     let _dictionary = [];
-    if (!word) { _dictionary = fs.readFileSync("config/dictionary.txt").toString().split("\n"); }
+    if (!word) { _dictionary = fs.readFileSync('config/dictionary.txt').toString().split('\n'); }
     hangman.protoWord = (word || _dictionary[Math.floor(Math.random() * _dictionary.length)]).toLowerCase();
     logger.debug(`hangman insert ${JSON.stringify(hangman)}`);
     return this.create(hangman);
@@ -34,10 +34,10 @@ class Hangman extends Base {
   }
 
   guess(letter) {
-    if (letter !== letter.toLowerCase()) { throw new Error("input.upper.case.letter"); }
-    if (letter.length > 1) { throw new Error("input.multi.letters"); }
-    if (letter.length < 1) { throw new Error("input.nothing"); }
-    if (this.guessedLetters.includes(letter)) { throw new Error("input.guessed.letter"); }
+    if (letter !== letter.toLowerCase()) { throw new Error('input.upper.case.letter'); }
+    if (letter.length > 1) { throw new Error('input.multi.letters'); }
+    if (letter.length < 1) { throw new Error('input.nothing'); }
+    if (this.guessedLetters.includes(letter)) { throw new Error('input.guessed.letter'); }
     this.guessedLetters.push(letter);
     if (!this.protoWord.split('').includes(letter)) { this.hp--; }
     this.state = 'guessing';
@@ -58,7 +58,7 @@ class Hangman extends Base {
   // 当前的猜测状态：由*和猜出的字母构成
   //
   currentWordStr() {
-    return this.protoWord.replace(new RegExp(`[^${this.guessedLetters.join('').replace('-', '\\-')}]`, 'g'), "*")
+    return this.protoWord.replace(new RegExp(`[^${this.guessedLetters.join('').replace('-', '\\-')}]`, 'g'), '*')
   }
 
   isFinished() {
@@ -71,9 +71,9 @@ class Hangman extends Base {
   // 2: 猜错了
   //
   letterStatus(letter) {
-    if (letter !== letter.toLowerCase()) { throw new Error("input.upper.case.letter"); }
-    if (letter.length > 1) { throw new Error("input.multi.letters"); }
-    if (letter.length < 1) { throw new Error("input.nothing"); }
+    if (letter !== letter.toLowerCase()) { throw new Error('input.upper.case.letter'); }
+    if (letter.length > 1) { throw new Error('input.multi.letters'); }
+    if (letter.length < 1) { throw new Error('input.nothing'); }
     if (!this.guessedLetters.includes(letter)) { return 0; }
     if (this.protoWord.split('').includes(letter)) { return 1; }
     return 2;
