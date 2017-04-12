@@ -26,3 +26,8 @@
   ```
 3. 访问[localhost:3000](http://localhost:3000)
 
+## 如何测试
+
+  ```
+  npm test
+  ```
