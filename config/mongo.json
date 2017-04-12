@@ -1,5 +1,8 @@
 {
   "dev": {
-    "address": "mongodb://localhost:27017/hangmanWeb"
+    "address": "mongodb://localhost:27017/hangmanWeb-dev"
+  },
+  "test": {
+    "address": "mongodb://localhost:27017/hangmanWeb-test"
   }
 }

@@ -1,7 +1,12 @@
 {
+  "test": {
+    "secret": "hangmanWebTest",
+    "key": "hangmanWebTest",
+    "maxAge": 86400000
+  },
   "dev": {
-    "secret": "hangmanWeb",
-    "key": "hangmanWeb",
+    "secret": "hangmanWebDev",
+    "key": "hangmanWebDev",
     "maxAge": 86400000
   }
 }
