@@ -22,11 +22,13 @@ router.post('/', checkNotLogin, (req, res, next) => {
     req.flash('error', e.message)
     return res.redirect('/users/new');
   }
-  User.signup(req.body).then((user) => {
+  User.signup(req.body)
+  .then((user) => {
     delete user.password;
     req.session.user = user;
     res.redirect('/hangmen');
-  }).catch((e) => {
+  })
+  .catch((e) => {
     if (e.message.match('E11000 duplicate key')) {
       req.flash('error', '用户名已被占用');
       return res.redirect('/users/new');
@@ -49,7 +51,8 @@ router.get('/signin', checkNotLogin, (req, res, next) => {
 // 登录
 //
 router.post('/signin', checkNotLogin, (req, res, next) => {
-  User.signin(req.body.name, req.body.password).then((user) => {
+  User.signin(req.body.name, req.body.password)
+  .then((user) => {
     if (!user) {
       req.flash('error', '用户名或密码错误');
       return res.redirect('/users/signin');
@@ -57,7 +60,8 @@ router.post('/signin', checkNotLogin, (req, res, next) => {
     logger.info(`User ${user.name} signin`);
     req.session.user = user;
     res.redirect('/hangmen');
-  }).catch(next)
+  })
+  .catch(next)
 });
 
 // 登出

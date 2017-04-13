@@ -62,7 +62,8 @@ describe('Test HangMan Class', () => {
 
   describe('test findAllByPlayer', () => {
     it('should return hangmen', (done) => {
-      Hangman.findAllByPlayer(user).then((hangmen) => {
+      Hangman.findAllByPlayer(user)
+      .then((hangmen) => {
         hangmen.length.should.equal(1);
         done();
       }).catch(done);
@@ -74,72 +75,90 @@ describe('Test HangMan Class', () => {
       (() => { hangman.guess('R') }).should.throw(Error, /input.upper.case.letter/);
       (() => { hangman.guess('rr') }).should.throw(Error, /input.multi.letters/);
       (() => { hangman.guess('') }).should.throw(Error, /input.nothing/);
-      hangman.guess('r').then((hangman) => {
+      hangman.guess('r')
+      .then((hangman) => {
         (() => { hangman.guess('r') }).should.throw(Error, /input.guessed.letter/);
         return hangman.giveup();
-      }).then((hangman) => {
+      })
+      .then((hangman) => {
         (() => { hangman.guess('r') }).should.throw(Error, /game.already.finished/);
         done();
-      }).catch(done);
+      })
+      .catch(done);
     });
 
     it('should guess a true letter', (done) => {
       let oldHp = hangman.hp;
-      hangman.guess('t').then((hangman) => {
+      hangman.guess('t')
+      .then((hangman) => {
         hangman.hp.should.equal(oldHp);
         hangman.state.should.equal("guessing");
         done();
-      }).catch(done);
+      })
+      .catch(done);
     });
 
     it('should guess a false letter', (done) => {
       let oldHp = hangman.hp;
-      hangman.guess('a').then((hangman) => {
+      hangman.guess('a')
+      .then((hangman) => {
         hangman.hp.should.equal(oldHp - 1);
         done();
-      }).catch(done);
+      })
+      .catch(done);
     });
 
     it('should win', (done) => {
-      hangman.guess('t').then((hangman) => {
+      hangman.guess('t')
+      .then((hangman) => {
         return hangman.guess('e');
-      }).then((hangman) => {
+      })
+      .then((hangman) => {
         return hangman.guess('s');
-      }).then((hangman) => {
+      })
+      .then((hangman) => {
         hangman.state.should.equal('win');
         done();
-      }).catch(done);
+      })
+      .catch(done);
     });
   });
 
   describe('test guess lose', () => {
     it('should guess lose', (done) => {
       hangman.hp = 1;
-      hangman.save().then((hangman) => {
+      hangman.save()
+      .then((hangman) => {
         return hangman.guess('r');
-      }).then((hangman) => {
+      })
+      .then((hangman) => {
         hangman.state.should.equal('lose');
         done();
-      }).catch(done);
+      })
+      .catch(done);
     });
   });
 
   describe('test giveup', () => {
     it('should guess lose', (done) => {
-      hangman.giveup().then((hangman) => {
+      hangman.giveup()
+      .then((hangman) => {
         hangman.hp.should.equal(0);
         hangman.state.should.equal('giveup');
         done();
-      }).catch(done);
+      })
+      .catch(done);
     });
   });
 
   describe('test currentWordStr', () => {
     it('should return t**t', (done) => {
-      hangman.guess('t').then((hangman) => {
+      hangman.guess('t')
+      .then((hangman) => {
         hangman.currentWordStr().should.equal('t**t');
         done();
-      }).catch(done);
+      })
+      .catch(done);
     });
   });
 
@@ -155,17 +174,21 @@ describe('Test HangMan Class', () => {
     });
 
     it('should return 1', (done) => {
-      hangman.guess('t').then((hangman) => {
+      hangman.guess('t')
+      .then((hangman) => {
         hangman.letterStatus('t').should.equal(1);
         done();
-      }).catch(done);
+      })
+      .catch(done);
     });
 
     it('should return 2', (done) => {
-      hangman.guess('a').then((hangman) => {
+      hangman.guess('a')
+      .then((hangman) => {
         hangman.letterStatus('a').should.equal(2);
         done();
-      }).catch(done);
+      })
+      .catch(done);
     });
   });
 });
