@@ -22,7 +22,7 @@ class Hangman extends Base {
   static findAllByPlayer(player, page = 1, per = 10) {
     let query = {};
     if (player) {
-      query.player = player;
+      query.player = player._id;
    }
     return this
       .find(query)
