@@ -10,7 +10,7 @@ describe('Test HangMan Class', () => {
   let hangman = {};
   let user = {};
   // 每个describe
-  before((done) => {
+  beforeEach((done) => {
     // 创建一个用户
     User.create({
       name: TEST_NAME_1,
@@ -29,7 +29,7 @@ describe('Test HangMan Class', () => {
     .catch(done);
   });
 
-  after((done) => {
+  afterEach((done) => {
     // 删除测试用户和游戏
     User.remove({ name: { $in: [TEST_NAME_1] } })
       .exec()
@@ -98,10 +98,24 @@ describe('Test HangMan Class', () => {
     });
 
     it('should win', (done) => {
-      hangman.guess('e').then((hangman) => {
+      hangman.guess('t').then((hangman) => {
+        return hangman.guess('e');
+      }).then((hangman) => {
         return hangman.guess('s');
       }).then((hangman) => {
         hangman.state.should.equal('win');
+        done();
+      }).catch(done);
+    });
+  });
+
+  describe('test guess lose', () => {
+    it('should guess lose', (done) => {
+      hangman.hp = 1;
+      hangman.save().then((hangman) => {
+        return hangman.guess('r');
+      }).then((hangman) => {
+        hangman.state.should.equal('lose');
         done();
       }).catch(done);
     });
