@@ -34,6 +34,7 @@ class Hangman extends Base {
   }
 
   guess(letter) {
+    if (this.isFinished()) { throw new Error('game.already.finished'); }
     if (letter !== letter.toLowerCase()) { throw new Error('input.upper.case.letter'); }
     if (letter.length > 1) { throw new Error('input.multi.letters'); }
     if (letter.length < 1) { throw new Error('input.nothing'); }

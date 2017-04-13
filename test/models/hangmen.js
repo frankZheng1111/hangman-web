@@ -76,6 +76,9 @@ describe('Test HangMan Class', () => {
       (() => { hangman.guess('') }).should.throw(Error, /input.nothing/);
       hangman.guess('r').then((hangman) => {
         (() => { hangman.guess('r') }).should.throw(Error, /input.guessed.letter/);
+        return hangman.giveup();
+      }).then((hangman) => {
+        (() => { hangman.guess('r') }).should.throw(Error, /game.already.finished/);
         done();
       }).catch(done);
     });
@@ -116,6 +119,51 @@ describe('Test HangMan Class', () => {
         return hangman.guess('r');
       }).then((hangman) => {
         hangman.state.should.equal('lose');
+        done();
+      }).catch(done);
+    });
+  });
+
+  describe('test giveup', () => {
+    it('should guess lose', (done) => {
+      hangman.giveup().then((hangman) => {
+        hangman.hp.should.equal(0);
+        hangman.state.should.equal('giveup');
+        done();
+      }).catch(done);
+    });
+  });
+
+  describe('test currentWordStr', () => {
+    it('should return t**t', (done) => {
+      hangman.guess('t').then((hangman) => {
+        hangman.currentWordStr().should.equal('t**t');
+        done();
+      }).catch(done);
+    });
+  });
+
+  describe('test letterStatus', () => {
+    it('should raise error', () => {
+      (() => { hangman.letterStatus('R') }).should.throw(Error, /input.upper.case.letter/);
+      (() => { hangman.letterStatus('rr') }).should.throw(Error, /input.multi.letters/);
+      (() => { hangman.letterStatus('') }).should.throw(Error, /input.nothing/);
+    });
+
+    it('should return 0', () => {
+      hangman.letterStatus('t').should.equal(0);
+    });
+
+    it('should return 1', (done) => {
+      hangman.guess('t').then((hangman) => {
+        hangman.letterStatus('t').should.equal(1);
+        done();
+      }).catch(done);
+    });
+
+    it('should return 2', (done) => {
+      hangman.guess('a').then((hangman) => {
+        hangman.letterStatus('a').should.equal(2);
         done();
       }).catch(done);
     });
