@@ -1,0 +1,15 @@
+.nav-setting
+  .ui.buttons
+    .ui.dropdown.button.floating
+      i.icon.bars
+      .menu
+        - if (user)
+          a.item(href='/hangmen') 主页
+          a.item(href='/hangmen') 游戏记录
+          a.item(href='/hangmen') 挑战记录
+          .divider
+          a.item(href='/hangmen') 个人信息
+          a.item(href='/users/signout') 登出
+        - else
+          a.item(href='/users/signin') 登录
+          a.item(href='/users/new') 注册
