@@ -59,6 +59,7 @@ class Hangman extends Base {
   // 当前的猜测状态：由*和猜出的字母构成
   //
   currentWordStr() {
+    if (this.state === 'init') { return '== ??? =='; }
     return this.protoWord.replace(new RegExp(`[^${this.guessedLetters.join('').replace('-', '\\-')}]`, 'g'), '*')
   }
 

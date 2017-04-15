@@ -11,11 +11,12 @@ block content
     tbody
       - each hangman in hangmen
         tr
-          td #{hangman.currentWordStr()}
+          td
+            a(href='/hangmen/#{hangman._id}') #{hangman.currentWordStr()}
           - if (hangman.isFinished())
             td #{hangman.protoWord}
           - else
-            td #{hangman.currentWordStr()}
+            td
           td #{{ init: '尚未开始', 'win': '通关', lose: '失败', giveup: '弃权', guessing: '暂停中' }[hangman.state]}
           td #{hangman.strfUpdatedAt()}
   script(type='text/javascript')

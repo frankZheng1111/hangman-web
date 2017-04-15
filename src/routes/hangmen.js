@@ -23,7 +23,7 @@ router.get('/list', (req, res, next) => {
   const PER = 20;
   Hangman.findAllByPlayer(req.session.user, PAGE, PER)
   .then((hangmen) => {
-    res.render('./hangmen/hangmenList', { description: '游戏记录', hangmen: hangmen });
+    res.render('./hangmen/hangmenList', { hangmen: hangmen });
   })
   .catch(next);
 });
