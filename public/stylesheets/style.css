@@ -64,6 +64,10 @@ a:hover {
   background: cornsilk;
 }
 
+th {
+  text-align: left;
+}
+
 /* ---------- nav-setting ---------- */
 
 .nav-setting {

@@ -1,0 +1,21 @@
+{
+  "name": "hangman-web",
+  "description": "A simple hangman game",
+  "main": "src/app.js",
+  "authors": [
+    "frank.zheng"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/frankZheng1111/hangman-web",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "datatables.net": "^1.10.13",
+    "datatables.net-dt": "^3.2.2"
+  }
+}

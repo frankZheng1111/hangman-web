@@ -1,0 +1,30 @@
+extend ../layouts/layout
+
+block content
+  table.stripe.hover.datatables.hangmen-list.dt-center
+    thead
+      tr
+        th 猜词
+        th 标准答案
+        th 状态
+        th 最后更新时间
+    tbody
+      - each hangman in hangmen
+        tr
+          td #{hangman.currentWordStr()}
+          - if (hangman.isFinished())
+            td #{hangman.protoWord}
+          - else
+            td #{hangman.currentWordStr()}
+          td #{{ init: '尚未开始', 'win': '通关', lose: '失败', giveup: '弃权', guessing: '暂停中' }[hangman.state]}
+          td #{hangman.strfUpdatedAt()}
+  script(type='text/javascript')
+    $(function() {
+    $('.datatables.hangmen-list').DataTable({
+    "info":false,
+    "ordering": false,
+    "lengthChange": false,
+    "searching": false,
+    "hover": true
+    });
+    });

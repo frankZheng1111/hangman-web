@@ -4,12 +4,26 @@ import Hangman from '../models/hangmen'
 
 const router = express.Router();
 
-// 获取所有或指定用户的猜过的记录
+// 获取指定用户的最近猜过的记录
 //
 router.get('/', (req, res, next) => {
-  Hangman.findAllByPlayer(req.session.user, 1, 2)
+  const PAGE = 1;
+  const PER = 2;
+  Hangman.findAllByPlayer(req.session.user, PAGE, PER)
   .then((hangmen) => {
     res.render('./hangmen/index', { hangmen: hangmen });
+  })
+  .catch(next);
+});
+
+// 获取指定用户的最近猜过的记录
+//
+router.get('/list', (req, res, next) => {
+  const PAGE = 1;
+  const PER = 20;
+  Hangman.findAllByPlayer(req.session.user, PAGE, PER)
+  .then((hangmen) => {
+    res.render('./hangmen/hangmenList', { description: '游戏记录', hangmen: hangmen });
   })
   .catch(next);
 });
