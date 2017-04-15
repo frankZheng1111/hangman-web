@@ -1,0 +1,30 @@
+mixin componentHangmanInfo(hangman)
+  .ui.segment.hangman-content
+    - if (hangman.state !== 'init')
+      h3
+        a(href='/hangmen/#{hangman._id}') #{hangman.currentWordStr()}
+    - else
+      h3
+        a(href='/hangmen/#{hangman._id}') == ??? ==
+    pre 游戏状态: #{{ init: '尚未开始', 'win': '通关', lose: '失败', giveup: '弃权', guessing: '暂停中' }[hangman.state]}
+    - if (hangman.isFinished())
+      pre 标准答案：#{hangman.protoWord}
+    div
+      label.tag 游戏开始时间: 
+      span.tag #{hangman.strfCreatedAt()}
+      label.tag 最后更新时间: 
+      span.tag #{hangman.strfUpdatedAt()}
+      span.tag.right
+        .ui.inline.dropdown
+          .text 操作
+          i.dropdown.icon
+          .menu
+            - if (hangman.isFinished())
+              .item
+                a(href='/hangmen/#{hangman._id}') 详情
+            - else
+              .item
+                a(href='/hangmen/#{hangman._id}') 继续
+              form.item(method='post', action='/hangmen/#{hangman._id}/giveup')
+                input(type='hidden', name='_method', value='patch')
+                input.giveup-link(type='submit', value='放弃')

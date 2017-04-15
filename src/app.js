@@ -5,7 +5,6 @@ import session from 'express-session';
 import _connectMongo from 'connect-mongo';
 import flash from 'connect-flash';
 import log4js from 'log4js';
-import expressLayouts from 'express-ejs-layouts';
 import bodyParser from 'body-parser';
 import methodOverride from 'method-override';
 

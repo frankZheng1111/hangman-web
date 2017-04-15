@@ -1,0 +1,24 @@
+extend ../layouts/layout
+
+block content
+  - if (hangman.state === 'giveup')
+    h3 弃权
+  - if (hangman.state === 'win')
+    h3 你赢了!
+  - else if(hangman.state === 'lose' || hangman.state === 'giveup')
+    h3 你输了==
+    label 正确答案:
+    span #{hangman.protoWord}
+  - else
+    h4 你还有#{hangman.hp}次机会
+  br
+  - if (hangman.state !== 'init')
+    label 猜词进度:
+    span #{currentWordStr}
+  br
+  br
+  label 请选择一个要猜的字母或连接符:
+  br
+  include components/letter.jade
+  - each letter in letters
+    + componentLetter(letter, hangman.letterStatus(letter), hangman.guessedLetters.includes(letter) || hangman.isFinished())

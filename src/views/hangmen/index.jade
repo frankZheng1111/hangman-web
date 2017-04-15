@@ -1,0 +1,19 @@
+extend ../layouts/layout
+
+block content
+  form.ui.form.segment(method='post', action='/hangmen')
+    input.ui.button.fluid(type='submit', value='猜一个新词')
+  br
+  .nav
+    .ui.grid
+      h4 最近的两次游戏记录:
+  - if (hangmen.length === 0)
+    .nav
+      p 您还有玩过一次hangman，点击上方按钮开始一次游戏
+  - else
+    include components/hangmanInfo.jade
+    - each hangman in hangmen
+      + componentHangmanInfo(hangman)
+    .nav
+      a(href='/hangmen')
+        h4 查看更多

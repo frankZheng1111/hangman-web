@@ -1,0 +1,7 @@
+mixin componentLetter(letter, guessedStatus, disabled)
+  .ui.grid.letter
+    .one.wide.column
+      form(method='post')
+        input(type='hidden', name='_method', value='patch')
+        input(type='hidden', name='letter', value='#{letter}')
+        input.ui.button(type='submit', class='#{(disabled ? "disabled" : null)} #{[null, "green", "red"][guessedStatus]}', value='#{letter}')
