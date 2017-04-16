@@ -2,16 +2,18 @@ extend ../layouts/layout
 
 block content
   .ui.segment.hangman-content
-    div
-      span.tag
-        h3 帐号名：#{user.name}
-      span.tag
-        h3 个人简介: #{user.intro}
-      span.tag
-        h3 注册时间: #{user.strfCreatedAt()}
-      span.tag
-        h3 统计信息:
-    #hangmen-state-statistic(style='width: 280px;height:280px;')
+    .ui.grid
+      .eight.wide.column
+        span.tag
+          h3 帐号名：#{user.name}
+        span.tag
+          h3 注册时间: #{user.strfCreatedAt()}
+        span.tag
+          h3 准确率: #{accuracy * 100}%
+        span.tag
+          h3 个人简介: #{user.intro}
+      .eight.wide.column
+        #hangmen-state-statistic(style='width: 280px;height:280px;')
 
 block header
   script(src='//cdn.bootcss.com/echarts/3.5.2/echarts.common.min.js')

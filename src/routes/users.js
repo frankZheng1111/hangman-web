@@ -2,6 +2,7 @@
 import express from 'express';
 import {  checkLogin, checkNotLogin } from '../middlewares/check';
 import User from '../models/users';
+import Hangman from '../models/hangmen';
 import logger from '../libs/logger';
 
 const router = express.Router();
@@ -9,9 +10,12 @@ const router = express.Router();
 // 新用户注册页面
 //
 router.get('/profile', checkLogin, (req, res, next) => {
-  User.findById(req.session.user._id)
-  .then((user) => {
-    res.render('./users/profile', { user: user });
+  Promise.all([
+    User.findById(req.session.user._id),
+    Hangman.accuracyOfPlayer(req.session.user)
+  ])
+  .then(([user, accuracy]) => {
+    res.render('./users/profile', { user: user, accuracy: accuracy });
   }).catch(next);
 });
 

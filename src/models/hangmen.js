@@ -19,6 +19,16 @@ class Hangman extends Base {
     return this.create(hangman);
   }
 
+  static accuracyOfPlayer(player) {
+    return Promise.all([
+      this.count({ player: player._id }),
+      this.count({ player: player._id, state: 'win' })
+    ])
+    .then(([total, win]) => {
+      console.log(win, total);
+      return (win / total).toFixed(5);
+    });
+  }
   static countStateByPlayer(player) {
     let stateValues = this.schema.path('state').enumValues;
     return Promise.all(
