@@ -8,6 +8,15 @@ const router = express.Router();
 
 // 新用户注册页面
 //
+router.get('/profile', checkLogin, (req, res, next) => {
+  User.findById(req.session.user._id)
+  .then((user) => {
+    res.render('./users/profile', { user: user });
+  }).catch(next);
+});
+
+// 新用户注册页面
+//
 router.get('/new', checkNotLogin, (req, res, next) => {
   res.render('./users/signup');
 });

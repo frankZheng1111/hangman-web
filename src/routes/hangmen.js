@@ -16,6 +16,14 @@ router.get('/', (req, res, next) => {
   .catch(next);
 });
 
+router.get('/state-data', (req, res, next) => {
+  Hangman.countStateByPlayer(req.session.user)
+  .then((stateData) => {
+    res.json(stateData);
+  })
+  .catch(next)
+});
+
 // 获取指定用户的所有猜过的记录
 //
 router.get('/list', (req, res, next) => {

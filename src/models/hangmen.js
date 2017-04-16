@@ -19,6 +19,21 @@ class Hangman extends Base {
     return this.create(hangman);
   }
 
+  static countStateByPlayer(player) {
+    let stateValues = this.schema.path('state').enumValues;
+    return Promise.all(
+      stateValues.map((stateValue) => {
+        return this.count({ state: stateValue });
+      })
+    )
+    .then((stateCounts) => {
+      let countResult = {};
+      stateValues.forEach((stateValue, index) => {
+        countResult[stateValue] = stateCounts[index]
+      });
+      return countResult;
+    });
+  }
   static findAllByPlayer(player, page = 1, per = 10) {
     let query = {};
     if (player) {
