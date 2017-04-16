@@ -5,6 +5,7 @@
   "main": "src/app.js",
   "scripts": {
     "test": "NODE_ENV=test node_modules/.bin/babel-node node_modules/.bin/babel-istanbul cover node_modules/.bin/_mocha -- test --recursive",
+    "server-start": "./node_modules/.bin/pm2 start build/app.js --name 'hangmanWeb'",
     "build": "babel src -d build",
     "start": "nodemon src/app.js --exec babel-node"
   },
@@ -30,6 +31,7 @@
     "moment": "^2.18.1",
     "mongoose": "^4.9.2",
     "mongoose-schema-extend": "^0.2.2",
+    "pm2": "^2.4.4",
     "sha1": "^1.1.1"
   },
   "devDependencies": {
