@@ -19,7 +19,6 @@
 1. 安装依赖：在项目根目录下运行：
   ```
   npm install
-  ./node_modules/.bin/bower install
   ```
 2. 运行：
   ```

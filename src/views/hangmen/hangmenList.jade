@@ -19,13 +19,3 @@ block content
             td
           td #{{ init: '尚未开始', 'win': '通关', lose: '失败', giveup: '弃权', guessing: '暂停中' }[hangman.state]}
           td #{hangman.strfUpdatedAt()}
-  script(type='text/javascript')
-    $(function() {
-    $('.datatables.hangmen-list').DataTable({
-    "info":false,
-    "ordering": false,
-    "lengthChange": false,
-    "searching": false,
-    "hover": true
-    });
-    });

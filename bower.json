@@ -15,7 +15,5 @@
     "tests"
   ],
   "dependencies": {
-    "datatables.net": "^1.10.13",
-    "datatables.net-dt": "^3.2.2"
   }
 }
