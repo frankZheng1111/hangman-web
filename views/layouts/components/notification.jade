@@ -1,10 +1,10 @@
 .ui.grid
   .seven.wide.column
   .nine.wide.column
-  - if (success)
-    .ui.success.message
-      p #{success}
-  - if (error)
-    .ui.error.message
-      p #{error}
+    - if (success)
+      .ui.success.message
+        p #{success}
+    - if (error)
+      .ui.error.message
+        p #{error}
 
