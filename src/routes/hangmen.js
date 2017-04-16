@@ -16,14 +16,21 @@ router.get('/', (req, res, next) => {
   .catch(next);
 });
 
-// 获取指定用户的最近猜过的记录
+// 获取指定用户的所有猜过的记录
 //
 router.get('/list', (req, res, next) => {
-  const PAGE = 1;
-  const PER = 20;
-  Hangman.findAllByPlayer(req.session.user, PAGE, PER)
-  .then((hangmen) => {
-    res.render('./hangmen/hangmenList', { hangmen: hangmen });
+  let per = 5;
+  let page = parseInt(req.query.page || 1);
+  page = page <= 0 ? 1 : page;
+  Promise.all([Hangman.findAllByPlayer(req.session.user, page, per), Hangman.count()])
+  .then(([hangmen, count]) => {
+    res.render('./hangmen/hangmenList', {
+      totalCount: count,
+      page: page,
+      isFirstPage: 1 === page,
+      isLastPage: Math.ceil(count / per) <= page,
+      hangmen: hangmen
+    });
   })
   .catch(next);
 });

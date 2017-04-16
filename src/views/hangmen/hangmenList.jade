@@ -1,13 +1,14 @@
 extend ../layouts/layout
 
 block content
-  table.stripe.hover.datatables.hangmen-list.dt-center
+  span 总共有#{totalCount}条记录
+  br
+  table.ui.celled.table
     thead
-      tr
-        th 猜词
-        th 标准答案
-        th 胜负
-        th 最后更新时间
+      th 猜词
+      th 标准答案
+      th 胜负
+      th 最后更新时间
     tbody
       - each hangman in hangmen
         tr
@@ -19,3 +20,14 @@ block content
             td
           td #{{ init: '尚未开始', 'win': '通关', lose: '失败', giveup: '弃权', guessing: '暂停中' }[hangman.state]}
           td #{hangman.strfUpdatedAt()}
+    tfoot
+      th(colspan=4)
+        - if (!isFirstPage)
+          .ui.left.floated.pagination.menu
+            a.icon.item(href='/hangmen/list?page=#{page - 1}')
+              i.left.chevron.icon
+        - if (!isLastPage)
+          .ui.right.floated.pagination.menu
+            a.icon.item(href='/hangmen/list?page=#{page + 1}')
+              i.right.chevron.icon
+
