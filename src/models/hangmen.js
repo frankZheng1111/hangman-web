@@ -25,8 +25,7 @@ class Hangman extends Base {
       this.count({ player: player._id, state: 'win' })
     ])
     .then(([total, win]) => {
-      console.log(win, total);
-      return (win / total).toFixed(5);
+      return win / total
     });
   }
   static countStateByPlayer(player) {

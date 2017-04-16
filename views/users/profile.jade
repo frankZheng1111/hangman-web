@@ -9,7 +9,7 @@ block content
         span.tag
           h3 注册时间: #{user.strfCreatedAt()}
         span.tag
-          h3 准确率: #{accuracy * 100}%
+          h3 准确率: #{(accuracy * 100).toFixed(2)}%
         span.tag
           h3 个人简介: #{user.intro}
       .eight.wide.column
