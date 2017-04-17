@@ -22,3 +22,9 @@ block content
   include components/letter.jade
   - each letter in letters
     + componentLetter(letter, hangman.letterStatus(letter), hangman.guessedLetters.includes(letter) || hangman.isFinished())
+  div
+  br
+  - if (hangman.isFinished())
+    form(method='post', action='/hangmen')
+      input.ui.button.fluid(type='submit', value='重开一局')
+    br
