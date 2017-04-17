@@ -9,6 +9,7 @@ block content
       th 标准答案
       th 胜负
       th 最后更新时间
+      th 操作
     tbody
       - each hangman in hangmen
         tr
@@ -20,8 +21,22 @@ block content
             td
           td #{{ init: '尚未开始', 'win': '通关', lose: '失败', giveup: '弃权', guessing: '暂停中' }[hangman.state]}
           td #{hangman.strfUpdatedAt()}
+          td
+            .ui.inline.dropdown
+              .text 操作
+              i.dropdown.icon
+              .menu
+                - if (hangman.isFinished())
+                  .item
+                    a(href='/hangmen/#{hangman._id}') 详情
+                - else
+                  .item
+                    a(href='/hangmen/#{hangman._id}') 继续
+                  form.item(method='post', action='/hangmen/#{hangman._id}/giveup')
+                    input(type='hidden', name='_method', value='patch')
+                    input.giveup-link(type='submit', value='放弃')
     tfoot
-      th(colspan=4)
+      th(colspan=5)
         - if (!isFirstPage)
           .ui.left.floated.pagination.menu
             a.icon.item(href='/hangmen/list?page=#{page - 1}')
