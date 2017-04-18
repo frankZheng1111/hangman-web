@@ -19,7 +19,11 @@ router.get('/', (req, res, next) => {
 router.get('/state-data', (req, res, next) => {
   Hangman.countStateByPlayer(req.session.user)
   .then((stateData) => {
-    res.json(stateData);
+    res.format({
+      json: function() {
+        res.json(stateData);
+      }
+    });
   })
   .catch(next)
 });
@@ -32,13 +36,18 @@ router.get('/list', (req, res, next) => {
   page = page <= 0 ? 1 : page;
   Promise.all([Hangman.findAllByPlayer(req.session.user, page, per), Hangman.count()])
   .then(([hangmen, count]) => {
-    res.render('./hangmen/hangmenList', {
+    let listParams = {
       totalCount: count,
       page: page,
       isFirstPage: 1 === page,
       isLastPage: Math.ceil(count / per) <= page,
       hangmen: hangmen
-    });
+    };
+    if ( 'application/json' === res.get('Content-Type')) {
+      res.json(listParams);
+    } else if ('text/html' === res.get('Content-Type')) {
+      res.render('./hangmen/hangmenList', listParams);
+    }
   })
   .catch(next);
 });

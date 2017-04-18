@@ -2,9 +2,15 @@
 import {  checkLogin } from '../middlewares/check';
 import hangmen from './hangmen';
 import users from './users';
+import api from './api';
 export default function (app) {
+  app.use('/api', api);
   app.get('/', (req, res) => {
     res.redirect('/users/signin');
+  });
+  app.use((req, res, next) => {
+    res.setHeader('Content-Type', 'text/html');
+    next();
   });
   app.use('/users', users);
   app.use(checkLogin);

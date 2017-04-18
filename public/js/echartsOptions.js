@@ -64,7 +64,7 @@ statePie.setOption({
     }
     ]
 });
-$.get('/hangmen/state-data', function(data) {
+$.get('/api/hangmen/state-data', function(data) {
   var stateToMsg = { init: '尚未开始', 'win': '通关', lose: '失败', giveup: '弃权', guessing: '暂停中' }
   var pieData = [];
   for(var state in data) {
