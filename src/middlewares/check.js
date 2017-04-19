@@ -14,3 +14,10 @@ export function checkNotLogin(req, res, next) {
   }
   next();
 }
+
+export function checkResHeaderHtml(req, res, next) {
+  if ('text/html' !== res.get('Content-Type')) {
+    return res.json({ error: "404 NOT FOUND" });
+  }
+  next();
+}
