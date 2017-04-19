@@ -1,12 +1,13 @@
 'use strict'
 import express from 'express';
 import Hangman from '../models/hangmen'
+import { checkResHeaderHtml } from '../middlewares/check';
 
 const router = express.Router();
 
 // 获取指定用户的最近猜过的记录
 //
-router.get('/', (req, res, next) => {
+router.get('/', checkResHeaderHtml, (req, res, next) => {
   const PAGE = 1;
   const PER = 2;
   Hangman.findAllByPlayer(req.session.user, PAGE, PER)
@@ -30,7 +31,7 @@ router.get('/state-data', (req, res, next) => {
 
 // 获取指定用户的所有猜过的记录
 //
-router.get('/list', (req, res, next) => {
+router.get('/list', checkResHeaderHtml, (req, res, next) => {
   let per = 5;
   let page = parseInt(req.query.page || 1);
   page = page <= 0 ? 1 : page;
@@ -43,11 +44,7 @@ router.get('/list', (req, res, next) => {
       isLastPage: Math.ceil(count / per) <= page,
       hangmen: hangmen
     };
-    if ( 'application/json' === res.get('Content-Type')) {
-      res.json(listParams);
-    } else if ('text/html' === res.get('Content-Type')) {
-      res.render('./hangmen/hangmenList', listParams);
-    }
+    res.render('./hangmen/hangmenList', listParams);
   })
   .catch(next);
 });
@@ -59,7 +56,16 @@ router.get('/:id', (req, res, next) => {
   .then((hangman) => {
     if (!hangman) { throw new Error('hangman not exist'); }
     const LETTERS = 'abcdefghijklmnopqrstuvwxyz-'.split('');
-    res.render('./hangmen/show', { hangman: hangman, currentWordStr: hangman.currentWordStr(), letters: LETTERS });
+    if ('application/json' === res.get('Content-Type')) {
+      res.json({
+        id: hangman._id,
+        hp: hangman.hp,
+        state: hangman.state,
+        currentWordStr: hangman.currentWordStr()
+      });
+    } else if ('text/html' === res.get('Content-Type')) {
+      res.render('./hangmen/show', { hangman: hangman, currentWordStr: hangman.currentWordStr(), letters: LETTERS });
+    }
   })
   .catch(next);
 });
@@ -69,7 +75,11 @@ router.get('/:id', (req, res, next) => {
 router.post('/', (req, res, next) => {
   Hangman.newGame(req.session.user)
   .then((hangman) => {
-    res.redirect(`/hangmen/${hangman._id}`)
+    if ('application/json' === res.get('Content-Type')) {
+      res.json({ status: 'success', id: hangman._id});
+    } else if ('text/html' === res.get('Content-Type')) {
+      res.redirect(`/hangmen/${hangman._id}`)
+    }
   })
   .catch(next);
 });
@@ -84,14 +94,23 @@ router.patch('/:id', (req, res, next) => {
     return hangman.guess(req.body.letter.toLowerCase());
   })
   .then((hangman) => {
-    res.redirect(`/hangmen/${hangman._id}`)
+    if ('application/json' === res.get('Content-Type')) {
+      res.json({
+        id: hangman._id,
+        hp: hangman.hp,
+        state: hangman.state,
+        currentWordStr: hangman.currentWordStr()
+      });
+    } else if ('text/html' === res.get('Content-Type')) {
+      res.redirect(`/hangmen/${hangman._id}`)
+    }
   })
   .catch(next);
 });
 
 // 这轮游戏弃权
 //
-router.patch('/:id/giveup', (req, res, next) => {
+router.patch('/:id/giveup', checkResHeaderHtml, (req, res, next) => {
   let hangman = Hangman.findById(req.params.id)
   .then((hangman) => {
     if (!hangman) { throw new Error('hangman not exist'); }
