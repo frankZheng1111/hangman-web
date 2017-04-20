@@ -67,7 +67,7 @@ class Hangman extends Base {
     if (!this.protoWord.split('').includes(letter)) { this.hp--; }
     this.state = 'guessing';
     if (this.hp == 0) { this.state = 'lose'; }
-    if (this.currentWordStr() === this.protoWord) { this.state = 'win'; }
+    if (this.currentWordStr === this.protoWord) { this.state = 'win'; }
     return this.save();
   }
 
@@ -82,7 +82,7 @@ class Hangman extends Base {
 
   // 当前的猜测状态：由*和猜出的字母构成
   //
-  currentWordStr() {
+  get currentWordStr() {
     if (this.state === 'init') { return '== ??? =='; }
     return this.protoWord.replace(new RegExp(`[^${this.guessedLetters.join('').replace('-', '\\-')}]`, 'g'), '*')
   }

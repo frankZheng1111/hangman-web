@@ -1,7 +1,7 @@
 mixin componentHangmanInfo(hangman)
   .ui.segment.hangman-content
     h3
-      a(href='/hangmen/#{hangman._id}') #{hangman.currentWordStr()}
+      a(href='/hangmen/#{hangman._id}') #{hangman.currentWordStr}
     pre 游戏状态: #{{ init: '尚未开始', 'win': '通关', lose: '失败', giveup: '弃权', guessing: '暂停中' }[hangman.state]}
     - if (hangman.isFinished())
       pre 标准答案：#{hangman.protoWord}

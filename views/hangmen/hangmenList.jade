@@ -14,7 +14,7 @@ block content
       - each hangman in hangmen
         tr
           td
-            a(href='/hangmen/#{hangman._id}') #{hangman.currentWordStr()}
+            a(href='/hangmen/#{hangman._id}') #{hangman.currentWordStr}
           - if (hangman.isFinished())
             td #{hangman.protoWord}
           - else

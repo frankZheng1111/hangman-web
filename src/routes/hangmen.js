@@ -64,7 +64,7 @@ router.get('/:id', (req, res, next) => {
         currentWordStr: hangman.currentWordStr()
       });
     } else if ('text/html' === res.get('Content-Type')) {
-      res.render('./hangmen/show', { hangman: hangman, currentWordStr: hangman.currentWordStr(), letters: LETTERS });
+      res.render('./hangmen/show', { hangman: hangman, currentWordStr: hangman.currentWordStr, letters: LETTERS });
     }
   })
   .catch(next);
@@ -99,7 +99,7 @@ router.patch('/:id', (req, res, next) => {
         id: hangman._id,
         hp: hangman.hp,
         state: hangman.state,
-        currentWordStr: hangman.currentWordStr()
+        currentWordStr: hangman.currentWordStr
       });
     } else if ('text/html' === res.get('Content-Type')) {
       res.redirect(`/hangmen/${hangman._id}`)

@@ -155,7 +155,7 @@ describe('Test HangMan Class', () => {
     it('should return t**t', (done) => {
       hangman.guess('t')
       .then((hangman) => {
-        hangman.currentWordStr().should.equal('t**t');
+        hangman.currentWordStr.should.equal('t**t');
         done();
       })
       .catch(done);
