@@ -10,8 +10,8 @@ class User extends Base {
   //
   static signup(user) {
     let userParams = Object.assign({}, user);
-    delete userParams.repassword
-    userParams.password = sha1(userParams.password)
+    delete userParams.repassword;
+    userParams.password = sha1(userParams.password);
     logger.debug(`Insert users ${JSON.stringify(userParams)}`);
     return this.create(userParams);
   }

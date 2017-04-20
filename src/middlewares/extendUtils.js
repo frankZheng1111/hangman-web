@@ -12,6 +12,6 @@ export function setMethodFormatByRespContentType (req, res, next) {
       }
     });
     return matchCallback();
-  }
+  };
   next();
 }

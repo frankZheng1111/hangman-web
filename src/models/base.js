@@ -13,7 +13,7 @@ function refreshUpdatedAt(next) {
   next();
 }
 baseSchema.plugin((schema) => {
-  schema.pre('save', refreshUpdatedAt)
+  schema.pre('save', refreshUpdatedAt);
 });
 
 class Base extends Model {

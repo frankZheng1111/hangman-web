@@ -1,6 +1,6 @@
 'use strict'
 import express from 'express';
-import Hangman from '../models/hangmen'
+import Hangman from '../models/hangmen';
 import { checkResHeaderHtml } from '../middlewares/check';
 import { HangmanSerializer } from '../serializers/hangman';
 
@@ -23,7 +23,7 @@ router.get('/state-data', (req, res, next) => {
   .then((stateData) => {
     res.json(stateData);
   })
-  .catch(next)
+  .catch(next);
 });
 
 // 获取指定用户的所有猜过的记录
@@ -75,7 +75,7 @@ router.post('/', (req, res, next) => {
         res.json(HangmanSerializer.serialize(hangman));
       }],
       ['text/html', function() {
-        res.redirect(`/hangmen/${hangman._id}`)
+        res.redirect(`/hangmen/${hangman._id}`);
       }]
     ]);
   })
@@ -97,7 +97,7 @@ router.patch('/:id', (req, res, next) => {
         res.json(HangmanSerializer.serialize(hangman));
       }],
       ['text/html', function() {
-        res.redirect(`/hangmen/${hangman._id}`)
+        res.redirect(`/hangmen/${hangman._id}`);
       }]
     ]);
   })
@@ -114,7 +114,7 @@ router.patch('/:id/giveup', checkResHeaderHtml, (req, res, next) => {
     return hangman.giveup();
   })
   .then((hangman) => {
-    res.redirect(`/hangmen/${hangman._id}`)
+    res.redirect(`/hangmen/${hangman._id}`);
   })
   .catch(next);
 });

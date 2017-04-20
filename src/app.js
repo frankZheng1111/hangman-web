@@ -13,7 +13,7 @@ import routes from './routes';
 import pkg from '../package';
 import logger from './libs/logger';
 
-const MongoStore = _connectMongo(session)
+const MongoStore = _connectMongo(session);
 const app = express();
 
 app.use(log4js.connectLogger(logger, {level:'debug', format:':method :url'}));

@@ -1,4 +1,4 @@
-var statePie = echarts.init($('#hangmen-state-statistic')[0])
+var statePie = echarts.init($('#hangmen-state-statistic')[0]);
 statePie.setOption({
     backgroundColor: 'cornsilk',
 
@@ -65,7 +65,7 @@ statePie.setOption({
     ]
 });
 $.get('/api/hangmen/state-data', function(data) {
-  var stateToMsg = { init: '尚未开始', 'win': '通关', lose: '失败', giveup: '弃权', guessing: '暂停中' }
+  var stateToMsg = { init: '尚未开始', 'win': '通关', lose: '失败', giveup: '弃权', guessing: '暂停中' };
   var pieData = [];
   for(var state in data) {
     pieData.push({ value: data[state], name: stateToMsg[state] });

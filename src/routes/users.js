@@ -28,7 +28,7 @@ router.post('/signin', checkNotLogin, (req, res, next) => {
       ['text/html', function() { res.redirect('/hangmen'); }]
     ]);
   })
-  .catch(next)
+  .catch(next);
 });
 
 // 登出
@@ -71,7 +71,7 @@ router.post('/', checkNotLogin, (req, res, next) => {
     if (req.body.password.length < 6) { throw new Error ('密码不能少于6位'); }
     if (req.body.password !== req.body.repassword) { throw new Error('两次输入密码不一样'); }
   } catch(e) {
-    req.flash('error', e.message)
+    req.flash('error', e.message);
     return res.redirect('/users/new');
   }
   User.signup(req.body)

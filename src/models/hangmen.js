@@ -1,8 +1,8 @@
 'use strict'
 import fs from 'fs';
 import mongoose from 'mongoose';
-import { hangmanSchema } from '../db/mongooseSchema'
-import Base from './base'
+import { hangmanSchema } from '../db/mongooseSchema';
+import Base from './base';
 import logger from '../libs/logger';
 
 const HANGMAN_FINSIHED_STATES = [ 'win', 'lose', 'giveup' ];
@@ -11,7 +11,7 @@ class Hangman extends Base {
   // 开始猜一个新词
   //
   static newGame(user, word) {
-    let hangman = { state: 'init', player: user._id }
+    let hangman = { state: 'init', player: user._id };
     let _dictionary = [];
     if (!word) { _dictionary = fs.readFileSync('config/dictionary.txt').toString().split('\n'); }
     hangman.protoWord = (word || _dictionary[Math.floor(Math.random() * _dictionary.length)]).toLowerCase();
@@ -25,7 +25,7 @@ class Hangman extends Base {
       this.count({ player: player._id, state: 'win' })
     ])
     .then(([total, win]) => {
-      return win / total
+      return win / total;
     });
   }
   static countStateByPlayer(player) {
