@@ -9,7 +9,7 @@ const router = express.Router();
 
 // 登录
 //
-router.post('/signin', checkNotLogin, (req, res, next) => {
+router.put('/signin', checkNotLogin, (req, res, next) => {
   User.signin(req.body.name, req.body.password)
   .then((user) => {
     if (!user) {

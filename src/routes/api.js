@@ -3,6 +3,7 @@ import express from 'express';
 import {  checkLogin } from '../middlewares/check';
 import hangmen from './hangmen';
 import users from './users';
+import logger from '../libs/logger';
 
 const router = express.Router();
 
