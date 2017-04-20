@@ -16,5 +16,9 @@ router.use('/hangmen', hangmen);
 router.use((req, res) => {
   res.status(404).json({ error: "404 NOT FOUND" });
 });
+router.use((err, req, res, next) => {
+  logger.error(err);
+  res.status(500).json({ error: "500 SERVER ERROR" });
+});
 
 export default router;
