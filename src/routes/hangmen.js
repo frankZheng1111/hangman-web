@@ -53,11 +53,14 @@ router.get('/:id', (req, res, next) => {
   .then((hangman) => {
     if (!hangman) { throw new Error('hangman not exist'); }
     const LETTERS = 'abcdefghijklmnopqrstuvwxyz-'.split('');
-    if ('application/json' === res.get('Content-Type')) {
-      res.json(HangmanSerializer.serialize(hangman));
-    } else if ('text/html' === res.get('Content-Type')) {
-      res.render('./hangmen/show', { hangman: hangman, currentWordStr: hangman.currentWordStr, letters: LETTERS });
-    }
+    res.formatByRespContentType([
+      ['application/json', function() {
+        res.json(HangmanSerializer.serialize(hangman));
+      }],
+      ['text/html', function() {
+        res.render('./hangmen/show', { hangman: hangman, currentWordStr: hangman.currentWordStr, letters: LETTERS });
+      }]
+    ]);
   })
   .catch(next);
 });
@@ -67,11 +70,14 @@ router.get('/:id', (req, res, next) => {
 router.post('/', (req, res, next) => {
   Hangman.newGame(req.session.user)
   .then((hangman) => {
-    if ('application/json' === res.get('Content-Type')) {
-      res.json(HangmanSerializer.serialize(hangman));
-    } else if ('text/html' === res.get('Content-Type')) {
-      res.redirect(`/hangmen/${hangman._id}`)
-    }
+    res.formatByRespContentType([
+      ['application/json', function() {
+        res.json(HangmanSerializer.serialize(hangman));
+      }],
+      ['text/html', function() {
+        res.redirect(`/hangmen/${hangman._id}`)
+      }]
+    ]);
   })
   .catch(next);
 });
@@ -86,11 +92,14 @@ router.patch('/:id', (req, res, next) => {
     return hangman.guess(req.body.letter.toLowerCase());
   })
   .then((hangman) => {
-    if ('application/json' === res.get('Content-Type')) {
-      res.json(HangmanSerializer.serialize(hangman));
-    } else if ('text/html' === res.get('Content-Type')) {
-      res.redirect(`/hangmen/${hangman._id}`)
-    }
+    res.formatByRespContentType([
+      ['application/json', function() {
+        res.json(HangmanSerializer.serialize(hangman));
+      }],
+      ['text/html', function() {
+        res.redirect(`/hangmen/${hangman._id}`)
+      }]
+    ]);
   })
   .catch(next);
 });

@@ -13,20 +13,20 @@ router.post('/signin', checkNotLogin, (req, res, next) => {
   User.signin(req.body.name, req.body.password)
   .then((user) => {
     if (!user) {
-      if ('application/json' === res.get('Content-Type')) {
-        return res.json({ status: "fail" });
-      } else if ('text/html' === res.get('Content-Type')) {
-        req.flash('error', '用户名或密码错误');
-        return res.redirect('/users/signin');
-      }
+      return res.formatByRespContentType([
+        ['application/json', function() { res.status(403).json({ status: 'fail', error: '用户名或密码错误' }); }],
+        ['text/html', function() {
+          req.flash('error', '用户名或密码错误');
+          res.redirect('/users/signin');
+        }]
+      ]);
     }
     logger.info(`User ${user.name} signin`);
     req.session.user = user;
-    if ('application/json' === res.get('Content-Type')) {
-      res.json({ status: "success" });
-    } else if ('text/html' === res.get('Content-Type')) {
-      res.redirect('/hangmen');
-    }
+    res.formatByRespContentType([
+      ['application/json', function() { res.json({ status: 'success' }); }],
+      ['text/html', function() { res.redirect('/hangmen'); }]
+    ]);
   })
   .catch(next)
 });
@@ -36,11 +36,10 @@ router.post('/signin', checkNotLogin, (req, res, next) => {
 router.get('/signout', checkLogin, (req, res, next) => {
   logger.info(`User ${req.session.user.name} signout`);
   req.session.user = null;
-  if ('application/json' === res.get('Content-Type')) {
-    res.json({ status: "success" });
-  } else if ('text/html' === res.get('Content-Type')) {
-    res.redirect('/users/signin');
-  }
+  res.formatByRespContentType([
+    ['application/json', function() { res.json({ status: 'success' }); }],
+    ['text/html', function() { res.redirect('/users/signin'); }]
+  ]);
 });
 
 //下方路由不被用于api
