@@ -2,6 +2,7 @@
 import express from 'express';
 import Hangman from '../models/hangmen'
 import { checkResHeaderHtml } from '../middlewares/check';
+import { HangmanSerializer } from '../serializers/hangman';
 
 const router = express.Router();
 
@@ -20,11 +21,7 @@ router.get('/', checkResHeaderHtml, (req, res, next) => {
 router.get('/state-data', (req, res, next) => {
   Hangman.countStateByPlayer(req.session.user)
   .then((stateData) => {
-    res.format({
-      json: function() {
-        res.json(stateData);
-      }
-    });
+    res.json(stateData);
   })
   .catch(next)
 });
@@ -57,12 +54,7 @@ router.get('/:id', (req, res, next) => {
     if (!hangman) { throw new Error('hangman not exist'); }
     const LETTERS = 'abcdefghijklmnopqrstuvwxyz-'.split('');
     if ('application/json' === res.get('Content-Type')) {
-      res.json({
-        id: hangman._id,
-        hp: hangman.hp,
-        state: hangman.state,
-        currentWordStr: hangman.currentWordStr()
-      });
+      res.json(HangmanSerializer.serialize(hangman));
     } else if ('text/html' === res.get('Content-Type')) {
       res.render('./hangmen/show', { hangman: hangman, currentWordStr: hangman.currentWordStr, letters: LETTERS });
     }
@@ -76,7 +68,7 @@ router.post('/', (req, res, next) => {
   Hangman.newGame(req.session.user)
   .then((hangman) => {
     if ('application/json' === res.get('Content-Type')) {
-      res.json({ status: 'success', id: hangman._id});
+      res.json(HangmanSerializer.serialize(hangman));
     } else if ('text/html' === res.get('Content-Type')) {
       res.redirect(`/hangmen/${hangman._id}`)
     }
@@ -95,12 +87,7 @@ router.patch('/:id', (req, res, next) => {
   })
   .then((hangman) => {
     if ('application/json' === res.get('Content-Type')) {
-      res.json({
-        id: hangman._id,
-        hp: hangman.hp,
-        state: hangman.state,
-        currentWordStr: hangman.currentWordStr
-      });
+      res.json(HangmanSerializer.serialize(hangman));
     } else if ('text/html' === res.get('Content-Type')) {
       res.redirect(`/hangmen/${hangman._id}`)
     }
