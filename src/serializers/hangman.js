@@ -2,5 +2,6 @@
 import { Serializer as JSONAPISerializer } from 'jsonapi-serializer';
 
 export let HangmanSerializer = new JSONAPISerializer('hangmen', {
-  attributes: ['state', 'hp', 'currentWordStr']
+  attributes: ['state', 'hp', 'currentWordStr'],
+  keyForAttribute: 'camelCase'
 });
