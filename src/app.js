@@ -73,9 +73,13 @@ app.use((err, req, res, next) => {
   });
 });
 
-if (!module.parent) {
+function startServer() {
   app.listen(config.server.port, () => {
     logger.info(`${pkg.name} listening on port ${config.server.port}`);
   });
 }
-module.exports=app;
+
+if (!module.parent) {
+  startServer();
+}
+export default startServer;
