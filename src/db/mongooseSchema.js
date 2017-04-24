@@ -50,7 +50,7 @@ export let hangmanSchema = baseSchema.extend({
   },
   hp: {
     type: Number,
-    default: 10
+    default: 7
   },
   state: {
     type: String,
