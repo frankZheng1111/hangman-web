@@ -48,7 +48,7 @@ describe('Test HangMan Class', () => {
     });
 
     it('should return hp', () => {
-      hangman.hp.should.equal(10);
+      hangman.hp.should.equal(7);
     });
 
     it('should return guessedLetters', () => {
