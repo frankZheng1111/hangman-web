@@ -1,7 +1,7 @@
 'use strict';
 import { should as _should } from 'chai';
-import User from '../../src/models/users'
-import Hangman from '../../src/models/hangmen'
+import User from '../../src/models/users';
+import Hangman from '../../src/models/hangmen';
 
 const should = _should();
 
@@ -19,7 +19,7 @@ describe('Test HangMan Class', () => {
       intro: 'aa'
     })
     .then((u) => {
-      user = u
+      user = u;
       return Hangman.newGame(u, 'test');
     })
     .then((h) => {
@@ -72,16 +72,16 @@ describe('Test HangMan Class', () => {
 
   describe('test guess win', () => {
     it('should raise error', (done) => {
-      (() => { hangman.guess('R') }).should.throw(Error, /input.upper.case.letter/);
-      (() => { hangman.guess('rr') }).should.throw(Error, /input.multi.letters/);
-      (() => { hangman.guess('') }).should.throw(Error, /input.nothing/);
+      (() => { hangman.guess('R'); }).should.throw(Error, /input.upper.case.letter/);
+      (() => { hangman.guess('rr'); }).should.throw(Error, /input.multi.letters/);
+      (() => { hangman.guess(''); }).should.throw(Error, /input.nothing/);
       hangman.guess('r')
       .then((hangman) => {
-        (() => { hangman.guess('r') }).should.throw(Error, /input.guessed.letter/);
+        (() => { hangman.guess('r'); }).should.throw(Error, /input.guessed.letter/);
         return hangman.giveup();
       })
       .then((hangman) => {
-        (() => { hangman.guess('r') }).should.throw(Error, /game.already.finished/);
+        (() => { hangman.guess('r'); }).should.throw(Error, /game.already.finished/);
         done();
       })
       .catch(done);
@@ -92,7 +92,7 @@ describe('Test HangMan Class', () => {
       hangman.guess('t')
       .then((hangman) => {
         hangman.hp.should.equal(oldHp);
-        hangman.state.should.equal("guessing");
+        hangman.state.should.equal('guessing');
         done();
       })
       .catch(done);
@@ -164,9 +164,9 @@ describe('Test HangMan Class', () => {
 
   describe('test letterStatus', () => {
     it('should raise error', () => {
-      (() => { hangman.letterStatus('R') }).should.throw(Error, /input.upper.case.letter/);
-      (() => { hangman.letterStatus('rr') }).should.throw(Error, /input.multi.letters/);
-      (() => { hangman.letterStatus('') }).should.throw(Error, /input.nothing/);
+      (() => { hangman.letterStatus('R'); }).should.throw(Error, /input.upper.case.letter/);
+      (() => { hangman.letterStatus('rr'); }).should.throw(Error, /input.multi.letters/);
+      (() => { hangman.letterStatus(''); }).should.throw(Error, /input.nothing/);
     });
 
     it('should return 0', () => {
