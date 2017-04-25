@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 import { should as _should } from 'chai';
 import User from '../../src/models/users'
 import Hangman from '../../src/models/hangmen'
