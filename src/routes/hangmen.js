@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 import express from 'express';
 import Hangman from '../models/hangmen';
 import { checkResHeaderHtml } from '../middlewares/check';
@@ -49,7 +49,7 @@ router.get('/list', checkResHeaderHtml, (req, res, next) => {
 // 查看单条记录的详情
 //
 router.get('/:id', (req, res, next) => {
-  let hangman = Hangman.findById(req.params.id)
+  Hangman.findById(req.params.id)
   .then((hangman) => {
     if (!hangman) { throw new Error('hangman not exist'); }
     const LETTERS = 'abcdefghijklmnopqrstuvwxyz-'.split('');
@@ -85,7 +85,7 @@ router.post('/', (req, res, next) => {
 // 猜一个字母
 //
 router.patch('/:id', (req, res, next) => {
-  let hangman = Hangman.findById(req.params.id)
+  Hangman.findById(req.params.id)
   .then((hangman) => {
     if (!hangman) { throw new Error('hangman not exist'); }
     if (hangman.isFinished()) { return Promise.resolve(hangman); }
@@ -107,7 +107,7 @@ router.patch('/:id', (req, res, next) => {
 // 这轮游戏弃权
 //
 router.patch('/:id/giveup', checkResHeaderHtml, (req, res, next) => {
-  let hangman = Hangman.findById(req.params.id)
+  Hangman.findById(req.params.id)
   .then((hangman) => {
     if (!hangman) { throw new Error('hangman not exist'); }
     if (hangman.isFinished()) { return Promise.resolve(hangman); }

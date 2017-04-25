@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 import mongoose from 'mongoose';
 import sha1 from 'sha1';
 import logger from '../libs/logger';

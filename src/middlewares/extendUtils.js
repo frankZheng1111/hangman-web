@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 // 添加方法res.formatByRespContentType
 // 根据res设定的header执行对应的回调函数
 // 若无匹配则执行第一个

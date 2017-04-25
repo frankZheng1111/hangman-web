@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 import fs from 'fs';
 import mongoose from 'mongoose';
 import { hangmanSchema } from '../db/mongooseSchema';
@@ -32,13 +32,13 @@ class Hangman extends Base {
     let stateValues = this.schema.path('state').enumValues;
     return Promise.all(
       stateValues.map((stateValue) => {
-        return this.count({ state: stateValue });
+        return this.count({ state: stateValue, player: player._id });
       })
     )
     .then((stateCounts) => {
       let countResult = {};
       stateValues.forEach((stateValue, index) => {
-        countResult[stateValue] = stateCounts[index]
+        countResult[stateValue] = stateCounts[index];
       });
       return countResult;
     });
@@ -47,7 +47,7 @@ class Hangman extends Base {
     let query = {};
     if (player) {
       query.player = player._id;
-   }
+    }
     return this
       .find(query)
       .skip((page-1) * per)
@@ -84,7 +84,7 @@ class Hangman extends Base {
   //
   get currentWordStr() {
     if (this.state === 'init') { return '== ??? =='; }
-    return this.protoWord.replace(new RegExp(`[^${this.guessedLetters.join('').replace('-', '\\-')}]`, 'g'), '*')
+    return this.protoWord.replace(new RegExp(`[^${this.guessedLetters.join('').replace('-', '\\-')}]`, 'g'), '*');
   }
 
   isFinished() {

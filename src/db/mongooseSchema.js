@@ -1,7 +1,8 @@
-'use strict'
+'use strict';
+// eslint-disable-next-line
+import extend from 'mongoose-schema-extend';
 import mongoose from 'mongoose';
 import { mongo } from '../config';
-import extend from 'mongoose-schema-extend';
 
 mongoose.connect(mongo.address);
 

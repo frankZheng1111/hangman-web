@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 import express from 'express';
 import { checkLogin, checkNotLogin, checkResHeaderHtml } from '../middlewares/check';
 import User from '../models/users';
@@ -33,7 +33,7 @@ router.put('/signin', checkNotLogin, (req, res, next) => {
 
 // 登出
 //
-router.get('/signout', checkLogin, (req, res, next) => {
+router.get('/signout', checkLogin, (req, res) => {
   logger.info(`User ${req.session.user.name} signout`);
   req.session.user = null;
   res.formatByRespContentType([
@@ -60,7 +60,7 @@ router.get('/profile', checkLogin, (req, res, next) => {
 
 // 新用户注册页面
 //
-router.get('/new', checkNotLogin, (req, res, next) => {
+router.get('/new', checkNotLogin, (req, res) => {
   res.render('./users/signup');
 });
 
@@ -96,7 +96,7 @@ router.post('/', checkNotLogin, (req, res, next) => {
 
 // 登录页面
 //
-router.get('/signin', checkNotLogin, (req, res, next) => {
+router.get('/signin', checkNotLogin, (req, res) => {
   res.render('./users/signin');
 });
 

@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 import moment from 'moment';
 import { baseSchema } from '../db/mongooseSchema';
 import mongoose from 'mongoose';

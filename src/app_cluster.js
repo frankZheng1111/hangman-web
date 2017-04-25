@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 import os from 'os';
 import cluster from 'cluster';
 import logger from './libs/logger';

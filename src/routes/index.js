@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 import { checkLogin } from '../middlewares/check';
 import { setMethodFormatByRespContentType } from '../middlewares/extendUtils';
 import hangmen from './hangmen';
