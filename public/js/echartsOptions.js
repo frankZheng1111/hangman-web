@@ -31,7 +31,6 @@ statePie.setOption({
       radius : '55%',
       center: ['50%', '50%'],
       data: [],
-      roseType: 'angle',
       label: {
         normal: {
           textStyle: {
